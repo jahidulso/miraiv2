@@ -1,0 +1,31 @@
+
+name: Mirai Bot Check
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Check entry file
+        run: |
+          if [ -f index.js ]; then
+            node --check index.js
+          elif [ -f index ]; then
+            node --check index
+          else
+            echo "Entry file not found"
+            exit 1
+          fi
