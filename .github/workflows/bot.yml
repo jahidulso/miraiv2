@@ -9,7 +9,7 @@ on:
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 300
 
     steps:
       - uses: actions/checkout@v4
@@ -33,5 +33,5 @@ jobs:
           fi
 
       - name: Start bot test
-        run: timeout 30s npm start
+        run: timeout 5h npm start
         continue-on-error: true
